@@ -1,0 +1,4 @@
+check process <%= @identifier %> matching "<%= @process_name %>"
+  start program = "<%= @start_cmd %>"
+  stop program = "<%= @stop_cmd %>"
+  if 5 restarts within 5 cycles then timeout
