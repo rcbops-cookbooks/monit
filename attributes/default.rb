@@ -1,4 +1,4 @@
-default["monit"]["poll_interval"] = 120
+default["monit"]["poll_interval"] = 60
 default["monit"]["poll_start_delay"] = 30
 
 default[:monit][:notify_email]          = "notify@example.com"
