@@ -18,7 +18,7 @@
 #
 
 action :add do
-    template "/etc/monit/conf.d/#{new_resource.name}.conf" do
+    template "#{node['monit']['conf.d_dir']}/#{new_resource.name}.conf" do
         owner "root"
         group "root"
         mode 0644
