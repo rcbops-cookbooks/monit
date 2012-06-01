@@ -38,7 +38,7 @@ service "monit" do
 end
 
 # TODO(shep): we need a variable stanza for passing in attributes
-template "/etc/monit/monitrc" do
+template node["monit"]["config_file"] do
   source 'monitrc.erb'
   owner "root"
   group "root"
