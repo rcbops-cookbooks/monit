@@ -4,8 +4,10 @@ default["monit"]["poll_start_delay"] = 30
 case node["platform"]
 when "fedora"
   default["monit"]["config_dir"] = "/etc"
+  default["monit"]["conf.d_dir"] = "/etc/monit.d"
 else
   default["monit"]["config_dir"] = "/etc/monit"
+  default["monit"]["conf.d_dir"] = "#{node['monit']['config_dir']/conf.d"
 end
 default["monit"]["config_file"] = "#{node["monit"]["config_dir"]}/monitrc"
 
