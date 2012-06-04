@@ -37,7 +37,6 @@ service "monit" do
   action [:enable, :start]
 end
 
-# TODO(shep): we need a variable stanza for passing in attributes
 template node["monit"]["config_file"] do
   source 'monitrc.erb'
   owner "root"
@@ -45,7 +44,12 @@ template node["monit"]["config_file"] do
   mode 0600
   variables(
     "poll_interval" => node["monit"]["poll_interval"],
-    "poll_start_delay" => node["monit"]["poll_start_delay"]
+    "poll_start_delay" => node["monit"]["poll_start_delay"],
+    "bind_port" => node["monit"]["bind_port"],
+    "bind_host" => node["monit"]["bind_host"],
+    "login_user" => node["monit"]["login_user"],
+    "login_pass" => node["monit"]["login_pass"],
+    "allowed_hosts" => node["monit"]["allowed_hosts"]
   )
   notifies :restart, resources(:service => "monit"), :delayed
 end

@@ -1,5 +1,10 @@
 default["monit"]["poll_interval"] = 60
 default["monit"]["poll_start_delay"] = 30
+default["monit"]["bind_port"] = "2812"
+default["monit"]["bind_host"] = "0.0.0.0"
+default["monit"]["login_user"] = "admin"
+default["monit"]["login_pass"] = "monit"
+default["monit"]["allowed_hosts"] = [ "0.0.0.0/0" ]
 
 case node["platform"]
 when "fedora"
