@@ -17,9 +17,16 @@
 # limitations under the License.
 #
 
+case node['platform']
+when 'ubuntu', 'debian'
+  pkg_options = "-o Dpkg::Options:='--force-confold' -o Dpkg::Option:='--force-confdef'"
+else
+  pkg_options = ""
+end
+
 package "monit" do
   action :upgrade
-  options "-o Dpkg::Options:='--force-confold' -o Dpkg::Option:='--force-confdef'"
+  options pkg_options
 end
 
 case node['platform']
@@ -30,6 +37,13 @@ when 'ubuntu', 'debian'
     group "root"
     mode 0644
   end
+end
+
+directory "/var/lib/monit" do
+  owner "root"
+  group "root"
+  mode "0755"
+  action :create
 end
 
 service "monit" do
