@@ -9,12 +9,13 @@ default["monit"]["allowed_hosts"] = [ "0.0.0.0/0" ]
 case node["platform"]
 when "fedora"
   default["monit"]["config_dir"] = "/etc"
-  default["monit"]["conf.d_dir"] = "/etc/monit.d"
+  default["monit"]["conf.d_dir"] = "#{node['monit']['config_dir']}/monit.d"
 else
   default["monit"]["config_dir"] = "/etc/monit"
-  default["monit"]["conf.d_dir"] = "#{node['monit']['config_dir']/conf.d"
+  default["monit"]["conf.d_dir"] = "#{node['monit']['config_dir']}/conf.d"
 end
-default["monit"]["config_file"] = "#{node["monit"]["config_dir"]}/monitrc"
+
+default["monit"]["config_file"] = "#{node['monit']['config_dir']}/monitrc"
 
 default[:monit][:notify_email]          = "notify@example.com"
 default[:monit][:mail_format][:subject] = "$SERVICE $EVENT"
