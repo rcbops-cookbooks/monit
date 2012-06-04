@@ -88,5 +88,5 @@ set httpd port <%= @bind_port %> and use the address <%= @bind_host %>
 ## It is possible to include additional configuration parts from other files or
 ## directories.
 #
-include <%= node["monit"]["conf.d_dir"] %>
+include <%= node["monit"]["conf.d_dir"] %>/*.conf
 
