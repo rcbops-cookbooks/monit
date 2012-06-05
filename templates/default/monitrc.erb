@@ -75,8 +75,11 @@ set alert <%= @node[:monit][:notify_email] %> NOT ON { action, instance, pid, pp
 #    allow @monit           # allow users of group 'monit' to connect (rw)
 #    allow @users readonly  # allow users of group 'users' to connect readonly
 #
-set httpd port 2812 and
-    allow admin:monit
+set httpd port <%= @bind_port %> and use the address <%= @bind_host %>
+    allow <%= @login_user %>:<%= @login_pass %>
+    <% for host in @allowed_hosts %>
+    allow <%= host %>
+    <% end %>
 
 ###############################################################################
 ## Includes
@@ -85,5 +88,5 @@ set httpd port 2812 and
 ## It is possible to include additional configuration parts from other files or
 ## directories.
 #
-include /etc/monit/conf.d/*.conf
+include <%= node["monit"]["conf.d_dir"] %>/*.conf
 
