@@ -33,4 +33,5 @@ action :add do
         action :create
         notifies :reload, resources(:service => "monit"), :immediately
     end
+    new_resource.updated_by_last_action(true)
 end

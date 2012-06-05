@@ -17,10 +17,10 @@ end
 
 default["monit"]["config_file"] = "#{node['monit']['config_dir']}/monitrc"
 
-default[:monit][:notify_email]          = "notify@example.com"
-default[:monit][:mail_format][:subject] = "$SERVICE $EVENT"
-default[:monit][:mail_format][:from]    = "monit@example.com"
-default[:monit][:mail_format][:message]    = <<-EOS
+default["monit"]["notify_email"]          = "notify@example.com"
+default["monit"]["mail_format"]["subject"] = "$SERVICE $EVENT"
+default["monit"]["mail_format"]["from"]    = "monit@example.com"
+default["monit"]["mail_format"]["message"]    = <<-EOS
 Monit $ACTION $SERVICE at $DATE on $HOST: $DESCRIPTION.
 Yours sincerely,
 monit
