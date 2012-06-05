@@ -17,9 +17,16 @@
 # limitations under the License.
 #
 
+case node['platform']
+when 'ubuntu', 'debian'
+  pkg_options = "-o Dpkg::Options:='--force-confold' -o Dpkg::Option:='--force-confdef'"
+else
+  pkg_options = ""
+end
+
 package "monit" do
   action :upgrade
-  options "-o Dpkg::Options:='--force-confold' -o Dpkg::Option:='--force-confdef'"
+  options pkg_options
 end
 
 case node['platform']
@@ -32,12 +39,18 @@ when 'ubuntu', 'debian'
   end
 end
 
+directory "/var/lib/monit" do
+  owner "root"
+  group "root"
+  mode "0755"
+  action :create
+end
+
 service "monit" do
   supports :status => true, :restart => true, :reload => true
   action [:enable, :start]
 end
 
-# TODO(shep): we need a variable stanza for passing in attributes
 template node["monit"]["config_file"] do
   source 'monitrc.erb'
   owner "root"
@@ -45,7 +58,12 @@ template node["monit"]["config_file"] do
   mode 0600
   variables(
     "poll_interval" => node["monit"]["poll_interval"],
-    "poll_start_delay" => node["monit"]["poll_start_delay"]
+    "poll_start_delay" => node["monit"]["poll_start_delay"],
+    "bind_port" => node["monit"]["bind_port"],
+    "bind_host" => node["monit"]["bind_host"],
+    "login_user" => node["monit"]["login_user"],
+    "login_pass" => node["monit"]["login_pass"],
+    "allowed_hosts" => node["monit"]["allowed_hosts"]
   )
   notifies :restart, resources(:service => "monit"), :delayed
 end
