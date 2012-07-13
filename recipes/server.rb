@@ -17,6 +17,11 @@
 # limitations under the License.
 #
 
+case node[:platform]
+when "redhat", "centos", "scientific", "amazon"
+  include_recipe "yum::epel"
+end
+
 case node['platform']
 when 'ubuntu', 'debian'
   pkg_options = "-o Dpkg::Options:='--force-confold' -o Dpkg::Option:='--force-confdef'"
