@@ -7,3 +7,7 @@ version          "1.0.2"
 %w{ ubuntu fedora }.each do |os|
   supports os
 end
+
+%w{ apt yum }.each do |dep|
+  depends dep
+end

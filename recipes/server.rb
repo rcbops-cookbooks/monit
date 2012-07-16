@@ -17,13 +17,13 @@
 # limitations under the License.
 #
 
-case node[:platform]
+case node["platform"]
 when "redhat", "centos", "scientific", "amazon"
   include_recipe "yum::epel"
 end
 
-case node['platform']
-when 'ubuntu', 'debian'
+case node["platform"]
+when "ubuntu", "debian"
   pkg_options = "-o Dpkg::Options:='--force-confold' -o Dpkg::Option:='--force-confdef'"
 else
   pkg_options = ""
@@ -34,8 +34,8 @@ package "monit" do
   options pkg_options
 end
 
-case node['platform']
-when 'ubuntu', 'debian'
+case node["platform"]
+when "ubuntu", "debian"
   template "/etc/default/monit" do
     source "default.monit.erb"
     owner "root"
@@ -57,7 +57,7 @@ service "monit" do
 end
 
 template node["monit"]["config_file"] do
-  source 'monitrc.erb'
+  source "monitrc.erb"
   owner "root"
   group "root"
   mode 0600

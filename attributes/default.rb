@@ -7,7 +7,7 @@ default["monit"]["login_pass"] = "monit"
 default["monit"]["allowed_hosts"] = [ "0.0.0.0/0" ]
 
 case node["platform"]
-when "fedora", "redhat"
+when "fedora", "redhat", "amazon", "centos", "scientific"
   default["monit"]["config_dir"] = "/etc"
   default["monit"]["conf.d_dir"] = "#{node['monit']['config_dir']}/monit.d"
 else
