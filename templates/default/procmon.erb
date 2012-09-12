@@ -4,6 +4,6 @@
 <%= node["custom_template_banner"] %>
 <% end %>
 check process <%= @identifier %> matching "<%= @process_name %>"
-  start program = "<%= @start_cmd %>"
-  stop program = "<%= @stop_cmd %>"
+  start program = "<%= @service_bin -%> <%= @script_name %> <%= @start_cmd %>"
+  stop program = "<%= @service_bin -%> <%= @script_name %> <%= @stop_cmd %>"
   if 5 restarts within 5 cycles then timeout
