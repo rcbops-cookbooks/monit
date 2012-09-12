@@ -10,9 +10,11 @@ case node["platform"]
 when "fedora", "redhat", "amazon", "centos", "scientific"
   default["monit"]["config_dir"] = "/etc"
   default["monit"]["conf.d_dir"] = "#{node['monit']['config_dir']}/monit.d"
+  default["monit"]["service_bin"] = "/sbin/service"
 else
   default["monit"]["config_dir"] = "/etc/monit"
   default["monit"]["conf.d_dir"] = "#{node['monit']['config_dir']}/conf.d"
+  default["monit"]["service_bin"] = "/usr/sbin/service"
 end
 
 default["monit"]["config_file"] = "#{node['monit']['config_dir']}/monitrc"
