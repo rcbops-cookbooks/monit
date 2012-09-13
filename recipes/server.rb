@@ -18,8 +18,40 @@
 #
 
 case node["platform"]
-when "redhat", "centos", "scientific", "amazon"
-  include_recipe "yum::epel"
+when "fedora", "redhat", "centos", "scientific", "amazon"
+  # If this is a RHEL based system install the RCB prod and testing repos
+
+  major = node['platform_version'].to_i
+  arch = node['kernel']['machine']
+
+  if not platform?("fedora")
+    include_recipe "yum::epel"
+    yum_os="RedHat"
+  else
+    yum_os="Fedora"
+  end
+
+  yum_key "RPM-GPG-RCB" do
+    url "http://build.monkeypuppetlabs.com/repo/RPM-GPG-RCB.key"
+    action :add
+  end
+
+  yum_repository "rcb" do
+    repo_name "rcb"
+    description "RCB Ops Stable Repo"
+    url "http://build.monkeypuppetlabs.com/repo/#{yum_os}/#{major}/#{arch}"
+    key "RPM-GPG-RCB"
+    action :add
+  end
+
+  yum_repository "rcb-testing" do
+    repo_name "rcb-testing"
+    description "RCB Ops Testing Repo"
+    url "http://build.monkeypuppetlabs.com/repo-testing/#{yum_os}/#{major}/#{arch}"
+    key "RPM-GPG-RCB"
+    enabled 0
+    action :add
+  end
 end
 
 case node["platform"]
