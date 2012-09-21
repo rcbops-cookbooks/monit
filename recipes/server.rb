@@ -49,7 +49,7 @@ when "fedora", "redhat", "centos", "scientific", "amazon"
     description "RCB Ops Testing Repo"
     url "http://build.monkeypuppetlabs.com/repo-testing/#{yum_os}/#{major}/#{arch}"
     key "RPM-GPG-RCB"
-    enabled 0
+    enabled 1
     action :add
   end
 end
