@@ -62,7 +62,7 @@ else
 end
 
 package "monit" do
-  action :upgrade
+  action :install
   options pkg_options
 end
 
