@@ -47,7 +47,7 @@ action :add do
         stop_cmd = "stop"
     end
 
-    template "#{node['monit']['conf.d_dir']}/#{new_resource.name}.conf" do
+    r = template "#{node['monit']['conf.d_dir']}/#{new_resource.name}.conf" do
         owner "root"
         group "root"
         mode 0644
@@ -64,5 +64,5 @@ action :add do
         action :create
         notifies :reload, resources(:service => "monit"), :immediately
     end
-    new_resource.updated_by_last_action(true)
+    new_resource.updated_by_last_action(r.updated_by_last_action?)
 end
