@@ -85,7 +85,7 @@ end
 
 service "monit" do
   supports :status => true, :restart => true, :reload => true
-  action [:enable, :start]
+  action [:enable]
 end
 
 template node["monit"]["config_file"] do
