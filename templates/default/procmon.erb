@@ -3,7 +3,11 @@
 <% if not node["custom_template_banner"].nil? %>
 <%= node["custom_template_banner"] %>
 <% end %>
+<% if not @pid_file.nil? %>
+check process <%= @identifier %> pidfile "<%= @pid_file %>"
+<% else %>
 check process <%= @identifier %> matching "<%= @process_name %>"
+<% end %>
   start program = "<%= @service_bin -%> <%= @script_name %> <%= @start_cmd %>"
   stop program = "<%= @service_bin -%> <%= @script_name %> <%= @stop_cmd %>"
   if 5 restarts within 5 cycles then timeout
