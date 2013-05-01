@@ -56,6 +56,7 @@ action :add do
         variables(
             "identifier" => new_resource.name,
             "process_name" => new_resource.process_name,
+            "pid_file" => new_resource.pid_file,
             "script_name" => script_name,
             "service_bin" => service_bin,
             "stop_cmd" => stop_cmd,
