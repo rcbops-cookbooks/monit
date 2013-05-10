@@ -17,46 +17,11 @@
 # limitations under the License.
 #
 
-case node["platform"]
-when "fedora", "redhat", "centos", "scientific", "amazon"
-  # If this is a RHEL based system install the RCB prod and testing repos
+include_recipe "osops-utils::packages"
 
-  major = node['platform_version'].to_i
-  arch = node['kernel']['machine']
-
-  if not platform?("fedora")
-    include_recipe "yum::epel"
-    yum_os="RedHat"
-  else
-    yum_os="Fedora"
-  end
-
-  yum_key "RPM-GPG-RCB" do
-    url "http://build.monkeypuppetlabs.com/repo/RPM-GPG-RCB.key"
-    action :add
-  end
-
-  yum_repository "rcb" do
-    repo_name "rcb"
-    description "RCB Ops Stable Repo"
-    url "http://build.monkeypuppetlabs.com/repo/#{yum_os}/#{major}/#{arch}"
-    key "RPM-GPG-RCB"
-    action :add
-  end
-
-  yum_repository "rcb-testing" do
-    repo_name "rcb-testing"
-    description "RCB Ops Testing Repo"
-    url "http://build.monkeypuppetlabs.com/repo-testing/#{yum_os}/#{major}/#{arch}"
-    key "RPM-GPG-RCB"
-    enabled 1
-    action :add
-  end
-end
-
-case node["platform"]
-when "ubuntu", "debian"
-  pkg_options = "-o Dpkg::Options:='--force-confold' -o Dpkg::Option:='--force-confdef'"
+if platform_family?("debian")
+  pkg_options = "-o Dpkg::Options:='--force-confold'"
+  pkg_options += " -o Dpkg::Option:='--force-confdef'"
 else
   pkg_options = ""
 end
@@ -66,14 +31,12 @@ package "monit" do
   options pkg_options
 end
 
-case node["platform"]
-when "ubuntu", "debian"
-  template "/etc/default/monit" do
-    source "default.monit.erb"
-    owner "root"
-    group "root"
-    mode 0644
-  end
+template "/etc/default/monit" do
+  source "default.monit.erb"
+  owner "root"
+  group "root"
+  mode 0644
+  only_if { platform_family?("debian") }
 end
 
 directory "/var/lib/monit" do
@@ -102,5 +65,5 @@ template node["monit"]["config_file"] do
     "login_pass" => node["monit"]["login_pass"],
     "allowed_hosts" => node["monit"]["allowed_hosts"]
   )
-  notifies :restart, resources(:service => "monit"), :delayed
+  notifies :restart, "service[monit]", :delayed
 end
