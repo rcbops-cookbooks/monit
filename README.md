@@ -1,7 +1,7 @@
 Support
 =======
 
-Issues have been disabled for this repository.  
+Issues have been disabled for this repository.
 Any issues with this cookbook should be raised here:
 
 [https://github.com/rcbops/chef-cookbooks/issues](https://github.com/rcbops/chef-cookbooks/issues)
@@ -10,7 +10,7 @@ Please title the issue as follows:
 
 [monit]: \<short description of problem\>
 
-In the issue description, please include a longer description of the issue, along with any relevant log/command/error output.  
+In the issue description, please include a longer description of the issue, along with any relevant log/command/error output.
 If logfiles are extremely long, please place the relevant portion into the issue description, and link to a gist containing the entire logfile
 
 
@@ -109,16 +109,16 @@ Templates
 License and Author
 ==================
 
-Author:: Justin Shepherd (<justin.shepherd@rackspace.com>)  
-Author:: Jason Cannavale (<jason.cannavale@rackspace.com>)  
-Author:: Ron Pedde (<ron.pedde@rackspace.com>)  
-Author:: Joseph Breu (<joseph.breu@rackspace.com>)  
-Author:: William Kelly (<william.kelly@rackspace.com>)  
-Author:: Darren Birkett (<darren.birkett@rackspace.co.uk>)  
-Author:: Evan Callicoat (<evan.callicoat@rackspace.com>)  
-Author:: Chris Laco (<chris.laco@rackspace.com>)  
+Author:: Justin Shepherd (<justin.shepherd@rackspace.com>)
+Author:: Jason Cannavale (<jason.cannavale@rackspace.com>)
+Author:: Ron Pedde (<ron.pedde@rackspace.com>)
+Author:: Joseph Breu (<joseph.breu@rackspace.com>)
+Author:: William Kelly (<william.kelly@rackspace.com>)
+Author:: Darren Birkett (<darren.birkett@rackspace.co.uk>)
+Author:: Evan Callicoat (<evan.callicoat@rackspace.com>)
+Author:: Chris Laco (<chris.laco@rackspace.com>)
 
-Copyright 2012, Rackspace US, Inc.  
+Copyright 2012, Rackspace US, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
