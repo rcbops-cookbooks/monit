@@ -12,7 +12,7 @@ group :test do
   cookbook "osops-utils", :git => "https://github.com/rcbops-cookbooks/osops-utils.git"
   cookbook "yum",         :git => "https://github.com/opscode-cookbooks/yum.git"
 
-  # use out local test cookbooks
+  # use our local test cookbooks
   cookbook "monit_test", :path => "./test/cookbooks/monit_test"
 
   # use specific version until minitest file discovery is fixed
