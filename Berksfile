@@ -9,7 +9,7 @@ metadata
 group :test do
   # use master commits like we do in chef-cookbooks
   cookbook "apt",         :git => "https://github.com/opscode-cookbooks/apt.git"
-  cookbook "osops-utils", :git => "https://github.com/rcbops-cookbooks/osops-utils.git"
+  cookbook "osops-utils", :git => "https://github.com/rcbops-cookbooks/osops-utils.git", :branch => "grizzly"
   cookbook "yum",         :git => "https://github.com/opscode-cookbooks/yum.git"
 
   # use our local test cookbooks
