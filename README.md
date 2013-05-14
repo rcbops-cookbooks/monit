@@ -64,7 +64,7 @@ The procmon resource can be used to configure monitoring of a process:
     end
     
     # using a pid file
-    monitoring_procmon "apache" do
+    monit_procmon "apache" do
       pid_file "/var/run/httpd.pid"
       start_cmd "/etc/init.d/apache2 start"
       stop_cmd "/etc/init.d/apache2 stop"
@@ -102,6 +102,7 @@ Attributes
 
 Templates
 =========
+
 * `default.monit.erb` - Upstart default file for monit service
 * `monitrc.erb` - Monit rc file
 * `procmon.erb` - Process monitoring config file template
