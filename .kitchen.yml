@@ -36,5 +36,5 @@ suites:
 - name: default
   run_list:
   - recipe[minitest-handler]
-  - recipe[monit_test]
+  - recipe[monit_test::server]
   attributes: {}
