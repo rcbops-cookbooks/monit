@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-require 'chef/mixin/shell_out'
+require "chef/mixin/shell_out"
 
 module MonitTestHelpers
   include Chef::Mixin::ShellOut
