@@ -20,8 +20,8 @@
 include_recipe "osops-utils::packages"
 
 if platform_family?("debian")
-  pkg_options = "-o Dpkg::Options:='--force-confold'"
-  pkg_options += " -o Dpkg::Option:='--force-confdef'"
+  pkg_options = "-o Dpkg::Options::='--force-confold'"
+  pkg_options += " -o Dpkg::Options::='--force-confdef'"
 else
   pkg_options = ""
 end
