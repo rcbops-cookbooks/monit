@@ -47,7 +47,7 @@ action :add do
     stop_cmd = "stop"
   end
 
-  http_checks = ensure_array(new_resource.http_check).compact.map do |check|
+  http_checks = Array(new_resource.http_check).map do |check|
     create_http_check(check)
   end
 
@@ -74,10 +74,6 @@ action :add do
 end
 
 private
-
-def ensure_array(obj)
-  obj.is_a?(Array) ? obj : [obj]
-end
 
 def create_http_check(check)
   check[:host] ||= "localhost"
