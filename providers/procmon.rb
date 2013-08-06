@@ -47,6 +47,10 @@ action :add do
     stop_cmd = "stop"
   end
 
+  http_checks = ensure_array(new_resource.http_check).compact.map do |check|
+    create_http_check(check)
+  end
+
   r = template "#{node['monit']['conf.d_dir']}/#{new_resource.name}.conf" do
     owner "root"
     group "root"
@@ -60,10 +64,31 @@ action :add do
       "script_name" => script_name,
       "service_bin" => service_bin,
       "stop_cmd" => stop_cmd,
-      "start_cmd" => start_cmd
+      "start_cmd" => start_cmd,
+      "http_checks" => http_checks
     )
     action :create
     notifies :reload, "service[monit]", :immediately
   end
   new_resource.updated_by_last_action(r.updated_by_last_action?)
+end
+
+private
+
+def ensure_array(obj)
+  obj.is_a?(Array) ? obj : [obj]
+end
+
+def create_http_check(check)
+  check[:host] ||= "localhost"
+  check[:port] ||= 80
+  result = []
+
+  result << "if failed host #{check[:host]} port #{check[:port]}"
+  result << "type tcpssl" if check[:https]
+  result << "protocol HTTP"
+  result << "request #{check[:path]}" unless check[:path].nil?
+  result << "then restart"
+
+  result.join(" ")
 end

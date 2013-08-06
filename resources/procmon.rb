@@ -30,3 +30,4 @@ attribute :service_bin, :kind_of => String
 attribute :script_name, :kind_of => String
 attribute :start_cmd, :kind_of => String
 attribute :stop_cmd, :kind_of => String
+attribute :http_check, :kind_of => [Array, Hash]
