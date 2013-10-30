@@ -17,6 +17,13 @@
 # limitations under the License.
 #
 
+action :remove do
+  r = file "#{node['monit']['conf.d_dir']}/#{new_resource.name}.conf" do
+    action :delete
+  end
+  new_resource.updated_by_last_action(r.updated_by_last_action?)
+end
+
 action :add do
   # use default service_bin for the platform if it has not been
   # set in the provider call
