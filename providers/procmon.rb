@@ -75,7 +75,7 @@ action :add do
       "http_checks" => http_checks
     )
     action :create
-    notifies :reload, "service[monit]", :immediately
+    notifies :reload, "service[monit]", :delayed
   end
   new_resource.updated_by_last_action(r.updated_by_last_action?)
 end
