@@ -72,7 +72,7 @@ action :add do
       "service_bin" => service_bin,
       "stop_cmd" => stop_cmd,
       "start_cmd" => start_cmd,
-      "http_checks" => http_checks
+      "http_checks" => http_checks.sort
     )
     action :create
     notifies :reload, "service[monit]", :delayed
