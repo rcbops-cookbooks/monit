@@ -20,11 +20,11 @@
 default["monit"]["poll_interval"] = 60                                        # node_attribute
 default["monit"]["poll_start_delay"] = 30                                     # node_attribute
 default["monit"]["bind_port"] = "2812"                                        # node_attribute
-default["monit"]["bind_host"] = "0.0.0.0"                                     # node_attribute
+default["monit"]["bind_host"] = "localhost"                                   # node_attribute
 default["monit"]["login_user"] = "admin"                                      # node_attribute
 default["monit"]["login_pass"] = "monit"                                      # node_attribute
-default["monit"]["allowed_hosts"] = ["0.0.0.0/0"]                             # node_attribute
-default["monit"]["httpd_enabled"] = false                                     # node_attribute
+default["monit"]["allowed_hosts"] = ["localhost"]                             # node_attribute
+default["monit"]["httpd_enabled"] = true                                      # node_attribute
 
 if platform_family?("rhel")
   default["monit"]["config_dir"] = "/etc"                                     # node_attribute
