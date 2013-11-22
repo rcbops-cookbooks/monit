@@ -17,7 +17,8 @@
 # limitations under the License.
 #
 
-actions :add
+actions :add, :remove
+default_action :add
 
 def initialize(*args)
   super
