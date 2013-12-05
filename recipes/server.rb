@@ -47,7 +47,11 @@ directory "/var/lib/monit" do
 end
 
 service "monit" do
-  supports :status => true, :restart => true, :reload => true
+  supports value_for_platform_family(
+    "rhel" => { "default" => [:status, :restart] },
+    "default" => { "default" => [:status, :restart, :reload] }
+  )
+
   action [:enable]
 end
 
