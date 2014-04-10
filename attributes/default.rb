@@ -48,3 +48,9 @@ Monit $ACTION $SERVICE at $DATE on $HOST: $DESCRIPTION.
 Yours sincerely,
 monit
 EOS
+
+default["monit"]["mmonit"]["host"] = nil
+default["monit"]["mmonit"]["urlscheme"] = "http"
+default["monit"]["mmonit"]["user"] = "monit"
+default["monit"]["mmonit"]["password"] = "monit"
+default["monit"]["mmonit"]["port"] = 8080
