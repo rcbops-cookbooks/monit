@@ -8,8 +8,12 @@ check process <%= @identifier %> pidfile "<%= @pid_file %>"
 <% else %>
 check process <%= @identifier %> matching "<%= @process_name %>"
 <% end %>
-  start program = "<%= @service_bin -%> <%= @script_name %> <%= @start_cmd %>"
-  stop program = "<%= @service_bin -%> <%= @script_name %> <%= @stop_cmd %>"
+<% unless @start_program.to_s == "" %>
+  start program = "<%= @start_program -%>"
+<% end %>
+<% unless @stop_program.to_s == "" %>
+  stop program = "<%= @stop_program -%>"
+<% end %>
 <% @http_checks.each do |check| -%>
   <%= check %>
 <% end -%>
