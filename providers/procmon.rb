@@ -73,7 +73,9 @@ action :add do
       "service_bin" => service_bin,
       "stop_cmd" => stop_cmd,
       "start_cmd" => start_cmd,
-      "http_checks" => http_checks.sort
+      "http_checks" => http_checks.sort,
+      "start_program" => "#{new_resource.service_bin} #{new_resource.script_name} #{new_resource.start_cmd}".strip,
+      "stop_program" => "#{new_resource.service_bin} #{new_resource.script_name} #{new_resource.stop_cmd}".strip
     )
     action :create
     notifies :restart, "service[monit]", :delayed
