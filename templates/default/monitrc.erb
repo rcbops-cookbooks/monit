@@ -82,11 +82,17 @@ set alert <%= @node[:monit][:notify_email] %> NOT ON { action, instance, pid, pp
 #    allow @monit           # allow users of group 'monit' to connect (rw)
 #    allow @users readonly  # allow users of group 'users' to connect readonly
 #
+<% if @node[:monit][:mmonit][:host] %>
+    set mmonit <%= node["monit"]["mmonit"]["urlscheme"] %>://<%= node["monit"]["mmonit"]["user"] %>:<%= node["monit"]["mmonit"]["password"] %>@<%= node["monit"]["mmonit"]["host"] %>:<%= node["monit"]["mmonit"]["port"] %>/collector
+<% end %>
 <% if @node[:monit][:httpd_enabled] %>
 set httpd port <%= @bind_port %> and use the address <%= @bind_host %>
     allow <%= @login_user %>:<%= @login_pass %>
     <% for host in @allowed_hosts %>
     allow <%= host %>
+    <% end %>
+    <% if @node[:monit][:mmonit][:host] %>
+    allow <% node["monit"]["mmonit"]["host"] %>
     <% end %>
 <% end %>
 
