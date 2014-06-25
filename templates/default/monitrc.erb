@@ -92,7 +92,7 @@ set httpd port <%= @bind_port %> and use the address <%= @bind_host %>
     allow <%= host %>
     <% end %>
     <% if @node[:monit][:mmonit][:host] %>
-    allow <% node["monit"]["mmonit"]["host"] %>
+    allow <%= node["monit"]["mmonit"]["host"] %>
     <% end %>
 <% end %>
 
