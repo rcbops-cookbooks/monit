@@ -26,33 +26,42 @@ action :remove do
 end
 
 action :add do
-  # use default service_bin for the platform if it has not been
-  # set in the provider call
-  if not @new_resource.service_bin.nil?
-    service_bin = new_resource.service_bin
-  else
-    service_bin = node["monit"]["service_bin"]
-  end
-
   # if script_name was not set then default it to ""
-  if not @new_resource.script_name.nil?
-    script_name = new_resource.script_name
-  else
+  if @new_resource.script_name.nil? or @new_resource.script_name == ""
+    service_bin = ""
     script_name = ""
-  end
-
-  # if start_cmd is not defined default to 'start'
-  if not @new_resource.start_cmd.nil?
-    start_cmd = new_resource.start_cmd
+    start_cmd = ""
+    stop_cmd = ""
   else
-    start_cmd = "start"
-  end
+    script_name = new_resource.script_name
+    # use default service_bin for the platform if it has not been
+    # set in the provider call
+    if not @new_resource.service_bin.nil?
+      service_bin = new_resource.service_bin
+    else
+      service_bin = node["monit"]["service_bin"]
+    end
 
-  # if start_cmd is not defined default to 'start'
-  if not @new_resource.stop_cmd.nil?
-    stop_cmd = new_resource.stop_cmd
-  else
-    stop_cmd = "stop"
+    # if script_name was not set then default it to ""
+    if not @new_resource.script_name.nil?
+      script_name = new_resource.script_name
+    else
+      script_name = ""
+    end
+
+    # if start_cmd is not defined default to 'start'
+    if not @new_resource.start_cmd.nil?
+      start_cmd = new_resource.start_cmd
+    else
+      start_cmd = "start"
+    end
+
+    # if start_cmd is not defined default to 'start'
+    if not @new_resource.stop_cmd.nil?
+      stop_cmd = new_resource.stop_cmd
+    else
+      stop_cmd = "stop"
+    end
   end
 
   http_checks = ensure_array(new_resource.http_check).compact.map do |check|
@@ -69,13 +78,9 @@ action :add do
       "identifier" => new_resource.name,
       "process_name" => new_resource.process_name,
       "pid_file" => new_resource.pid_file,
-      "script_name" => script_name,
-      "service_bin" => service_bin,
-      "stop_cmd" => stop_cmd,
-      "start_cmd" => start_cmd,
       "http_checks" => http_checks.sort,
-      "start_program" => "#{new_resource.service_bin} #{new_resource.script_name} #{new_resource.start_cmd}".strip,
-      "stop_program" => "#{new_resource.service_bin} #{new_resource.script_name} #{new_resource.stop_cmd}".strip
+      "start_program" => "#{service_bin} #{script_name} #{start_cmd}".strip,
+      "stop_program" => "#{service_bin} #{script_name} #{stop_cmd}".strip
     )
     action :create
     notifies :restart, "service[monit]", :delayed
